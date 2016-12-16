@@ -21,6 +21,22 @@ while ':'; do
     ;;
   esac
 
+  commit_hash=`
+    'eval' "${GIT}"' \
+      '\''rev-parse'\'' \
+      '\''--verify'\'' \
+      "${1}"'\''^{commit}'\'' \
+    ;'
+  `
+  es="${?}"
+  case "${es}" in
+    '0')
+    ;;
+    *)
+      'exit' "${es}"
+    ;;
+  esac
+
 done
 
 'exit' '0'
