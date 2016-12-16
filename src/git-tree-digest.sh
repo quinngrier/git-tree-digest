@@ -1,4 +1,7 @@
 
+GIT='git'
+'readonly' 'GIT'
+
 case "${#}" in
   '0')
     'set' 'dummy'
