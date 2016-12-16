@@ -1,3 +1,25 @@
+
+case "${#}" in
+  '0')
+    'set' 'dummy'
+  ;;
+  *)
+    'set' 'dummy' "${@}"
+  ;;
+esac
+
+while ':'; do
+
+  'shift'
+
+  case "${#}" in
+    '0')
+      'break'
+    ;;
+  esac
+
+done
+
 'exit' '0'
 
 #
