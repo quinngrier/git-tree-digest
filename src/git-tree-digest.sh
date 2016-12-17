@@ -21,11 +21,11 @@ while ':'; do
     ;;
   esac
 
-  commit_hash=`
+  tree_hash=`
     'eval' "${GIT}"' \
       '\''rev-parse'\'' \
       '\''--verify'\'' \
-      "${1}"'\''^{commit}'\'' \
+      "${1}"'\''^{tree}'\'' \
     ;'
   `
   es="${?}"
