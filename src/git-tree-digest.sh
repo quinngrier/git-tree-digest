@@ -72,7 +72,7 @@ EOF
 
   hash_list=`
     'sed' \
-      's/ .*//' \
+      's/[	 ].*//' \
       0<<EOF \
     ;
 ${rev_list}
