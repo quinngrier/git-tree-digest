@@ -1,4 +1,13 @@
 
+#
+# The nl variable holds a newline character. It can be used where a
+# literal newline character might be awkward.
+#
+
+nl='
+'
+'readonly' 'nl'
+
 GIT='git'
 'readonly' 'GIT'
 
