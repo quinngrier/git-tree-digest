@@ -39,7 +39,7 @@ while ':'; do
     ;;
   esac
 
-  rev_list=`
+  hash_list=`
     'eval' "${GIT}"' \
       '\''rev-list'\'' \
       '\''--objects'\'' \
@@ -55,12 +55,12 @@ while ':'; do
     ;;
   esac
 
-  rev_list=`
+  hash_list=`
     'sed' \
       's/[	 ].*//' \
       0<<EOF \
     ;
-${rev_list}
+${hash_list}
 EOF
   `
   es="${?}"
@@ -72,11 +72,11 @@ EOF
     ;;
   esac
 
-  rev_list=`
+  hash_list=`
     'sort' \
       0<<EOF \
     ;
-${rev_list}
+${hash_list}
 EOF
   `
   es="${?}"
