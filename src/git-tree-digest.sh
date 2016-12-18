@@ -88,6 +88,10 @@ EOF
     ;;
   esac
 
+  for hash in ${hash_list}; do
+
+  done
+
 done
 
 'exit' '0'
