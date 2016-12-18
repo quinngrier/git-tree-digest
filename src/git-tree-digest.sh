@@ -97,7 +97,21 @@ EOF
     ;;
   esac
 
+  digest_list=''
+
   for hash in ${hash_list}; do
+
+    digest_list="${digest_list}""${nl}"`
+      echo foo
+    `
+    es="${?}"
+    case "${es}" in
+      '0')
+      ;;
+      *)
+        'exit' "${es}"
+      ;;
+    esac
 
   done
 
