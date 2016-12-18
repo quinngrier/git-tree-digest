@@ -40,7 +40,6 @@ while ':'; do
   rev_list=`
     'eval' "${GIT}"' \
       '\''rev-list'\'' \
-      '\''--no-walk'\'' \
       '\''--objects'\'' \
       "${tree_hash}" \
     ;'
