@@ -102,7 +102,42 @@ EOF
   for hash in ${hash_list}; do
 
     digest_list="${digest_list}""${nl}"`
-      echo foo
+      'exec' 3>&1
+      es1=\`
+        {
+          {
+            'eval' "${GIT}"' \
+              '\''cat-file'\'' \
+              '\''-p'\'' \
+              "${hash}" \
+            ;'
+            'echo' "${?}"' ' 1>&4
+          } | 'eval' "${OPENSSL}"' \
+            '\''dgst'\'' \
+            '\''-sha512'\'' \
+            1>&3 \
+          ;'
+        } 4>&1
+      \`
+      es2="${?}"
+      case "${es1}" in
+        '0 ')
+        ;;
+        *' ')
+          'exit' ${es1}
+        ;;
+        *)
+          'exit' '1'
+        ;;
+      esac
+      case "${es2}" in
+        '0')
+        ;;
+        *)
+          'exit' "${es2}"
+        ;;
+      esac
+      'exit' '0'
     `
     es="${?}"
     case "${es}" in
