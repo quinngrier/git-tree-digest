@@ -150,6 +150,33 @@ EOF
 
   done
 
+  digest_list=`
+    'sed' \
+      '
+        1d
+        s/A/a/g
+        s/B/b/g
+        s/C/c/g
+        s/D/d/g
+        s/E/e/g
+        s/F/f/g
+        s/^\([0-9a-f]\{16,\}\).*$/\1/
+        s/^.*[^0-9a-f]\([0-9a-f]\{16,\}\).*$/\1/
+      ' \
+      0<<EOF \
+    ;
+${digest_list}
+EOF
+  `
+  es="${?}"
+  case "${es}" in
+    '0')
+    ;;
+    *)
+      'exit' "${es}"
+    ;;
+  esac
+
 done
 
 'exit' '0'
