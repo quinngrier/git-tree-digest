@@ -37,6 +37,23 @@ while ':'; do
     ;;
   esac
 
+  rev_list=`
+    'eval' "${GIT}"' \
+      '\''rev-list'\'' \
+      '\''--no-walk'\'' \
+      '\''--objects'\'' \
+      "${tree_hash}" \
+    ;'
+  `
+  es="${?}"
+  case "${es}" in
+    '0')
+    ;;
+    *)
+      'exit' "${es}"
+    ;;
+  esac
+
 done
 
 'exit' '0'
