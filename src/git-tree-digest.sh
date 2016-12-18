@@ -70,6 +70,23 @@ EOF
     ;;
   esac
 
+  hash_list=`
+    'sed' \
+      's/ .*//' \
+      0<<EOF \
+    ;
+${rev_list}
+EOF
+  `
+  es="${?}"
+  case "${es}" in
+    '0')
+    ;;
+    *)
+      'exit' "${es}"
+    ;;
+  esac
+
 done
 
 'exit' '0'
