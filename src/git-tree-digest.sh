@@ -32,7 +32,7 @@ while ':'; do
     ;;
   esac
 
-  tree_hash=`
+  tree_object=`
     'eval' "${GIT}"' \
       '\''rev-parse'\'' \
       '\''--verify'\'' \
@@ -48,11 +48,11 @@ while ':'; do
     ;;
   esac
 
-  hash_list=`
+  object_list=`
     'eval' "${GIT}"' \
       '\''rev-list'\'' \
       '\''--objects'\'' \
-      "${tree_hash}" \
+      "${tree_object}" \
     ;'
   `
   es="${?}"
@@ -64,12 +64,12 @@ while ':'; do
     ;;
   esac
 
-  hash_list=`
+  object_list=`
     'sed' \
       's/[	 ].*//' \
       0<<EOF \
     ;
-${hash_list}
+${object_list}
 EOF
   `
   es="${?}"
@@ -81,11 +81,11 @@ EOF
     ;;
   esac
 
-  hash_list=`
+  object_list=`
     'sort' \
       0<<EOF \
     ;
-${hash_list}
+${object_list}
 EOF
   `
   es="${?}"
@@ -99,7 +99,7 @@ EOF
 
   digest_list=''
 
-  for hash in ${hash_list}; do
+  for object in ${object_list}; do
 
     digest_list="${digest_list}""${nl}"`
       'exec' 3>&1
@@ -109,7 +109,7 @@ EOF
             'eval' "${GIT}"' \
               '\''cat-file'\'' \
               '\''-p'\'' \
-              "${hash}" \
+              "${object}" \
             ;'
             'echo' "${?}"' ' 1>&4
           } | 'eval' "${OPENSSL}"' \
