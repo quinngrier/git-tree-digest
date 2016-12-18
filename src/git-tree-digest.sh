@@ -55,7 +55,8 @@ while ':'; do
   esac
 
   rev_list=`
-    'sort' \
+    'sed' \
+      's/[	 ].*//' \
       0<<EOF \
     ;
 ${rev_list}
@@ -70,9 +71,8 @@ EOF
     ;;
   esac
 
-  hash_list=`
-    'sed' \
-      's/[	 ].*//' \
+  rev_list=`
+    'sort' \
       0<<EOF \
     ;
 ${rev_list}
