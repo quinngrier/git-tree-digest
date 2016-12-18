@@ -2,6 +2,8 @@
 GIT='git'
 'readonly' 'GIT'
 
+OPENSSL=''\''openssl'\'''
+
 case "${#}" in
   '0')
     'set' 'dummy'
