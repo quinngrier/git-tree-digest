@@ -180,6 +180,18 @@ EOF
     ;;
   esac
 
+  'cat' <<EOF
+${tree_digest}
+EOF
+  es="${?}"
+  case "${es}" in
+    '0')
+    ;;
+    *)
+      'exit' "${es}"
+    ;;
+  esac
+
 done
 
 'exit' '0'
