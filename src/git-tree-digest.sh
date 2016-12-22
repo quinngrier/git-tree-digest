@@ -97,7 +97,7 @@ EOF
     ;;
   esac
 
-  digest_list=`
+  tree_digest=`
     'exec' 3>&1
     es1=\`
       {
@@ -154,7 +154,7 @@ EOF
     ;;
   esac
 
-  digest_list=`
+  tree_digest=`
     'sed' \
       '
         s/A/a/g
@@ -168,7 +168,7 @@ EOF
       ' \
       0<<EOF \
     ;
-${digest_list}
+${tree_digest}
 EOF
   `
   es="${?}"
