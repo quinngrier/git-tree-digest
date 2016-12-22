@@ -97,63 +97,66 @@ EOF
     ;;
   esac
 
-  digest_list=''
-
-  for object in ${object_list}; do
-
-    digest_list="${digest_list}""${nl}"`
-      'exec' 3>&1
-      es1=\`
+  digest_list=`
+    'exec' 3>&1
+    es1=\`
+      {
         {
-          {
+          for object in ${object_list}; do
             'eval' "${GIT}"' \
               '\''cat-file'\'' \
               '\''-p'\'' \
               "${object}" \
             ;'
-            'echo' "${?}"' ' 1>&4
-          } | 'eval' "${OPENSSL}"' \
-            '\''dgst'\'' \
-            '\''-sha512'\'' \
-            1>&3 \
-          ;'
-        } 4>&1
-      \`
-      es2="${?}"
-      case "${es1}" in
-        '0 ')
-        ;;
-        *' ')
-          'exit' ${es1}
-        ;;
-        *)
-          'exit' '1'
-        ;;
-      esac
-      case "${es2}" in
-        '0')
-        ;;
-        *)
-          'exit' "${es2}"
-        ;;
-      esac
-      'exit' '0'
-    `
-    es="${?}"
-    case "${es}" in
+            es="${?}"
+            case "${es}" in
+              '0')
+              ;;
+              *)
+                'break'
+              ;;
+            esac
+          done
+          'echo' "${es}"' ' 1>&4
+        } | 'eval' "${OPENSSL}"' \
+          '\''dgst'\'' \
+          '\''-sha512'\'' \
+          1>&3 \
+        ;'
+      } 4>&1
+    \`
+    es2="${?}"
+    case "${es1}" in
+      '0 ')
+      ;;
+      *' ')
+        'exit' ${es1}
+      ;;
+      *)
+        'exit' '1'
+      ;;
+    esac
+    case "${es2}" in
       '0')
       ;;
       *)
-        'exit' "${es}"
+        'exit' "${es2}"
       ;;
     esac
-
-  done
+    'exit' '0'
+  `
+  es="${?}"
+  case "${es}" in
+    '0')
+    ;;
+    *)
+      'exit' "${es}"
+    ;;
+  esac
 
   digest_list=`
     'sed' \
       '
-        1d
         s/A/a/g
         s/B/b/g
         s/C/c/g
